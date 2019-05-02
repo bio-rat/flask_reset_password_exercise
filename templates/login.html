@@ -1,0 +1,31 @@
+{% extends 'layout.html' %} {% block content %} {% if current_user.is_active %}
+<h1>your're already logged in as {{ current_user.username }}</h1>
+{% else %}
+<form method="POST" class="form-signin">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input
+    name="email"
+    type="email"
+    id="inputEmail"
+    class="form-control"
+    placeholder="Email address"
+    autofocus
+  />
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input
+    name="password"
+    type="password"
+    id="inputPassword"
+    class="form-control"
+    placeholder="Password"
+  />
+  <button class="btn btn-lg btn-primary btn-block" type="submit">
+    Sign in
+  </button>
+  <span>Dont have an account?</span>
+  <a href="{{ url_for('signup') }}">Signup here!!!</a>
+  <span>Forget password?</span>
+  <a href="{{ url_for('reset') }}">Click here to reset!!!</a>
+</form>
+{% endif %} {% endblock %}

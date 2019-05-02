@@ -1,0 +1,33 @@
+{% extends 'layout.html' %} {% block content %}
+<form method="POST" class="form-signin">
+  <h1 class="h3 mb-3 font-weight-normal">Please Sign upppp</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input
+    name="email"
+    type="email"
+    id="inputEmail"
+    class="form-control"
+    placeholder="Email address"
+    autofocus
+  />
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input
+    name="password"
+    type="password"
+    id="inputPassword"
+    class="form-control"
+    placeholder="Password"
+  />
+  <label for="username" class="sr-only">Username</label>
+  <input
+    name="username"
+    type="username"
+    id="username"
+    class="form-control"
+    placeholder="User name"
+  />
+  <button class="btn btn-lg btn-primary btn-block" type="submit">
+    Sign upppp
+  </button>
+</form>
+{% endblock %}

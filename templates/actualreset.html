@@ -1,0 +1,10 @@
+{% extends 'layout.html' %} 
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %} 
+<h5>Enter new password</h5>
+<div class="row">
+  <div class="col-md-4">
+      {{ wtf.quick_form(form) }}
+  </div>
+</div> {% endblock %}

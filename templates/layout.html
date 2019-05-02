@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <title>{% block title %}{{ title }}{% endblock %} - My Webpage</title>
+  </head>
+  <body>
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }} mx-5" role="alert">
+        {{ message }}
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <div class="d-flex justify-content-start">
+        {% if current_user.is_active %}<span class="mr-1"
+          >You are {{ current_user.username }}
+        </span>
+        <a class="mr-3" href="{{ url_for('logout') }}"><u>Logout!</u></a>
+        {% else %}
+        <span class="mr-1">Your are not logged in</span>
+        <a class="mr-3" href="{{ url_for('login') }}">Click here to login!!</a>
+        {% endif %}
+        <a class="mr-3" href="{{ url_for('posts') }}">Posts</a>
+        <a class="mr-3" href="{{ url_for('create') }}">Create</a>
+      </div>
+
+      <div>{% block content %}{% endblock %}</div>
+    </div>
+  </body>
+</html>
