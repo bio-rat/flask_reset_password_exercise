@@ -10,7 +10,8 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from flask_bootstrap import Bootstrap
 import requests
 from itsdangerous import URLSafeTimedSerializer
-
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -179,15 +180,15 @@ class PasswordForm(FlaskForm):
 
 def send_password_reset_email(email, name):
     token = ts.dumps(email, salt='recover-password-secret')
-    apikey = "d34712c9091819894412d80173ba2345-7bce17e5-1b464f35"
-    url = "https://api.mailgun.net/v3/sandbox7d108c5f562d48c39a80896f6f602cdf.mailgun.org/messages"
-    requests.post(url, 
+    apikey = os.environ['MG_APIKEY']
+    url = os.environ['MG_URL']
+    res = requests.post(url, 
         auth=("api", apikey), 
-        data={"from": "postmaster@sandbox7d108c5f562d48c39a80896f6f602cdf.mailgun.org",
+        data={"from": os.environ['MG_EMAIL'],
         "to": [email], 
         "subject": "Reset Password", 
         "html": f"""<html><p>Dear {name.capitalize()},</p><p>To reset your password: <a href='http://localhost:5000/new_password/{token}'>Click this link!!</a></p><p>Alternatively, you can paste the following link in your browser's address bar:</p><p style='color: blue'>http://localhost:5000/new_password/{token}</p><p>If you have not requested a password reset simply ignore this message.</p><p>Sincerely,</p><p>Hung dep trai</p></html>"""},)   
-
+    print(res)
 
 @app.route('/reset', methods=["GET", "POST"])
 def reset():
